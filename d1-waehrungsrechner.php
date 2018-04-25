@@ -43,14 +43,17 @@
 //Wenn ein formular abgeschickt wurde
   if(isset($_POST["betrag"]) ){
     $betrag = $_POST["betrag"];
+    $betrag = str_replace("," , "." , $betrag);
 
     if(is_numeric($betrag)){
       $kurs_btc_eur = 9091.58;
       $kurs_eur_btc = 1 / $kurs_btc_eur;
 
       $zielbetrag = $kurs_eur_btc * $betrag;
+      $zielbetrag = round($zielbetrag, 6);
 
-      echo "<br><div class=\"eingabe_ok\">".$betrag . " EUR = " . $zielbetrag . " BTC"."</div>";
+      echo "<br><div class=\"eingabe_ok\">".str_replace("." , "," , $betrag) . " EUR = " . str_replace("." , "," , $zielbetrag) . " BTC";
+      echo "<br> Wechselkurs 1 EUR = ".str_replace("." , "," , $kurs_eur_btc)." BTC </div>";
     }
     else{
       echo "<br><div class=\"eingabe_error\">"."Bitte eine Zahl eingeben </div>";
